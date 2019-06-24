@@ -22,6 +22,7 @@ import java.util.Map;
  */
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class LoginController {
 
 
@@ -55,7 +56,8 @@ public class LoginController {
                 //要使用权限类名
                 //hashMap.put("token", com.skytech.grading.config.util.JWTUtil.sign(user.getId(), user.getPassword()));
                 //存在cookie里面相对安全
-                Cookie cookie = new Cookie("access_token", com.skytech.grading.config.util.JWTUtil.sign(user.getId(), user.getPassword()));
+                //注意这里必须要用加密的密码做密钥
+                Cookie cookie = new Cookie("access_token", com.skytech.grading.config.util.JWTUtil.sign(user.getId(), userRole.getPassword()));
                 response.addCookie(cookie);
             }
             }

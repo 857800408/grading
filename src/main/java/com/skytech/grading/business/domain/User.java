@@ -25,5 +25,6 @@ public class User implements Serializable {
     //入司时间
     private Date admissionTime;
     private String personalIntroduction;
-
+    private Organization organization;
+    private Post post;
 }

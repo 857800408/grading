@@ -3,6 +3,8 @@ package com.skytech.grading.business.service;
 import com.skytech.grading.business.domain.User;
 import com.skytech.grading.business.util.PageHelper;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Classname UserService
  * @Description TODO
@@ -19,4 +21,6 @@ public interface UserService {
     void delUser(String id);
 
     void updateUser(User user);
+
+    User getPersonal(HttpServletRequest request);
 }

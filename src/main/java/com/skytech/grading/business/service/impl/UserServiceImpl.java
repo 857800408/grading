@@ -3,12 +3,14 @@ package com.skytech.grading.business.service.impl;
 import com.skytech.grading.business.dao.UserDao;
 import com.skytech.grading.business.domain.User;
 import com.skytech.grading.business.service.UserService;
+import com.skytech.grading.business.util.CookieUtil;
 import com.skytech.grading.business.util.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -63,6 +65,17 @@ public class UserServiceImpl implements UserService {
     public void updateUser(User user) {
         try {
             userDao.updateUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.HTTP_VERSION_NOT_SUPPORTED);
+        }
+    }
+
+    @Override
+    public User getPersonal(HttpServletRequest request) {
+        try {
+            String username = CookieUtil.getUsername(request);
+            return userDao.getUserRole(username);
         } catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.HTTP_VERSION_NOT_SUPPORTED);

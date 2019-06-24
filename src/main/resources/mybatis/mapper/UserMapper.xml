@@ -11,6 +11,16 @@
         <result property="password" column="PASSWORD"></result>
         <result property="admissionTime" column="ADMISSION_TIME"></result>
         <result property="personalIntroduction" column="PERSONAL_INTRODUCTION"></result>
+        <association property="organization" javaType="com.skytech.grading.business.domain.Organization">
+            <result property="orgId" column="org_ID"></result>
+            <result property="orgName" column="org_Name"></result>
+        </association>
+        <association property="post" javaType="com.skytech.grading.business.domain.Post">
+            <result property="postId" column="post_Id"></result>
+            <result property="postName" column="post_Name"></result>
+            <result property="postIntroduction" column="post_Introduction"></result>
+        </association>
+
         <collection property="roleList" ofType="com.skytech.grading.business.domain.Role">
             <id column="ROLEID" property="roleId"></id>
 
@@ -36,11 +46,13 @@
           select * from  T_USER where id=#{param1}
     </select>
     <select id="getUserRole" resultMap="selectUser" parameterType="string">
-      select u.*,r.*,p.* from t_user u
+      select u.*,r.*,p.*,post.*,org.* from t_user u
        left join t_user_role ur on u.id = ur.ref_userid
        left join t_role r on r.roleId = ur.ref_roleid
        left join t_role_permission rp on rp.ref_roleid = r.roleId
        left join t_permission p on p.permissionId  = rp.ref_permissionid
+       left join t_post post on u.post_id = post.post_id
+       left join t_org org on u.org_id = org.org_id
        where 1=1
       <if test="_parameter!='' and _parameter!=null">
           and u.id = #{_parameter}

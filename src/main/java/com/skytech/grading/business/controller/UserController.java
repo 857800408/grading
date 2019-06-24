@@ -7,6 +7,8 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Classname UserController
  * @Description TODO
@@ -47,6 +49,13 @@ public class UserController {
         //@RequiresPermissions(value = "delUser")
     public void delUser(@RequestBody User user){
         userService.updateUser(user);
+    }
+
+    /*查询个人用户*/
+    @RequiresPermissions(value = "queryUser")
+    @RequestMapping(value = "/user/getPersonal",method = RequestMethod.GET)
+    public User getPersonal(HttpServletRequest request){
+        return userService.getPersonal(request);
     }
 
 }

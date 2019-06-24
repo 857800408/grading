@@ -1,5 +1,6 @@
 package com.skytech.grading.config.shiro;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +16,9 @@ import java.io.IOException;
 
 
 //这有一个FormHttpAuthenticationFilter，不适合前后端分离
+@Slf4j
 public class JWTFilter extends BasicHttpAuthenticationFilter {
 
-    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 判断用户是否想要登入。
@@ -26,7 +27,17 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest req = (HttpServletRequest) request;
-        String authorization = req.getHeader("Authorization");
+        //String authorization = req.getHeader("Authorization");
+        Cookie[] cookies = req.getCookies();
+
+        String authorization = "";
+
+        for(Cookie cookie: cookies){
+            if("access_token".equals(cookie.getName())){
+                log.info("-------->access_token  isLoginAttempt");
+                authorization=cookie.getValue();
+            }
+        }
         return authorization != null;
     }
 
@@ -45,6 +56,8 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
 
         for(Cookie cookie: cookies){
             if("access_token".equals(cookie.getName())){
+                log.info("-------->access_token executeLogin");
+                System.out.println(((HttpServletRequest) request).getRequestURI()+"access_token");
                 authorization=cookie.getValue();
             }
         }
@@ -103,7 +116,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
             httpServletResponse.sendRedirect("/401");
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+            log.error(e.getMessage());
         }
     }
 }

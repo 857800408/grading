@@ -28,7 +28,7 @@ public class CrossFilter implements Filter {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
-
+        response.setHeader("Access-Control-Allow-Credentials","true");
         //报错：Request header field authorization is not allowed by Access-Control-Allow-Headers in preflight response.
         //Access-Control-Allow-Headers没有写全
         String allowHeaders = "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With, Authorization";
