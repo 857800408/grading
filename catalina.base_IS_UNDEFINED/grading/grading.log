@@ -1,0 +1,3 @@
+2019/06/24 14:41:11 [ main ] - [ INFO  ] [ com.skytech.test.mapper.MapperTest : 50 ] - Starting MapperTest on DESKTOP-POJB1E3 with PID 14184 (started by huangdasheng in D:\IntelliJ_workspace\gradingDemo)
+2019/06/24 14:41:11 [ main ] - [ INFO  ] [ com.skytech.test.mapper.MapperTest : 675 ] - No active profile set, falling back to default profiles: default
+2019/06/24 14:41:20 [ main ] - [ INFO  ] [ com.skytech.test.mapper.MapperTest : 59 ] - Started MapperTest in 10.424 seconds (JVM running for 17.589)

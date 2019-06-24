@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--配置一次，可以复用-->
+<configuration>
+    <!--配置项目目录-->
+    <property name="SYS_PATH" value="/grading" />
+
+    <!--ConsoleAppender控制台输出-->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!--格式-->
+            <pattern>%d---{HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!--轮动记录信息-->
+    <appender name="syslog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${catalina.base}/${SYS_PATH}/${SYS_PATH}.log</File>
+        <!-- rollingPolicy:当发生滚动时，决定 RollingFileAppender 的行为，涉及文件移动和重命名。 -->
+        <!-- TimeBasedRollingPolicy： 最常用的滚动策略，它根据时间来制定滚动策略，既负责滚动也负责出发滚动 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 活动文件的名字会根据fileNamePattern的值，每隔一段时间改变一次 -->
+            <!-- 文件名：log/sys.2017-12-05.0.log -->
+            <fileNamePattern>${catalina.base}/${SYS_PATH}/${SYS_PATH}.%d.%i.log</fileNamePattern>
+            <!-- 每产生一个日志文件，该日志文件的保存期限为30天 -->
+            <maxHistory>365</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <!-- pattern节点，用来设置日志的输入格式 -->
+            <pattern>
+                %d{yyyy/MM/dd HH:mm:ss} [ %thread ] - [ %-5level ] [ %logger{50} : %line ] - %msg%n
+            </pattern>
+            <!-- 记录日志的编码 -->
+            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="debug" additivity="false"></logger>
+
+    <root level="info">
+        <appender-ref ref="stdout" />
+        <appender-ref ref="syslog" />
+    </root>
+</configuration>
