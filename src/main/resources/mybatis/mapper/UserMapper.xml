@@ -39,7 +39,7 @@
         insert into t_user (id,name,email,age) values (#{id},#{name},#{email},#{age})
     </insert>
     <update id="updateUser">
-        update T_User set name=#{name},age=#{age},email=#{email} where id=#{id}
+        update T_User set name=#{name},age=#{age},email=#{email},personal_introduction=#{personalIntroduction} where id=#{id}
     </update>
 
     <select id="getUser" resultType="com.skytech.grading.business.domain.User">

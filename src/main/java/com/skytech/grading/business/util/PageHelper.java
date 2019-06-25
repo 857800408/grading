@@ -11,7 +11,7 @@ public class PageHelper<T> implements Serializable {
     private int limit;   //每页显示的记录数
     private List<T> list; //每页显示数据记录的集合；
     private String query; //查询条件
-    private Integer type;  //查询类型
+    private String type;  //查询类型
     public PageHelper() {
         this.page=1;
         this.limit=15;
@@ -29,11 +29,11 @@ public class PageHelper<T> implements Serializable {
 
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 

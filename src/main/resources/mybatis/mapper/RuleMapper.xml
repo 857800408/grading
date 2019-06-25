@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skytech.grading.business.dao.RuleDao">
+    <resultMap id="selectRule" type="com.skytech.grading.business.domain.Rule">
+        <id property="ruleId" column="rule_Id"></id>
+        <result property="ruleIntroduction" column="rule_Introduction"></result>
+        <result property="ruleLevel" column="rule_Level"></result>
+        <result property="rulePost" column="rule_Post"></result>
+        <result property="ruleClass" column="rule_Class"></result>
+    </resultMap>
+    <select id="getRuleByPage" resultMap="selectRule">
+        SELECT T_RULE.* FROM (
+        SELECT ROWNUM AS rowno, t.* FROM T_RULE t WHERE 1=1
+
+        AND ROWNUM &lt;= (#{param1}*#{param2})) T_RULE
+
+        WHERE T_RULE.RULE_POST =#{param3} AND T_RULE.rowno >= (#{param1}-1)*#{param2} ORDER BY T_RULE.RULE_LEVEL,T_RULE.RULE_CLASS,T_RULE.RULE_INTRODUCTION
+     </select>
+    <select id="getRuleCount" resultType="java.lang.Integer">
+        select count(1) from T_RULE where 1=1 and T_RULE.RULE_POST =#{param1}
+    </select>
+</mapper>

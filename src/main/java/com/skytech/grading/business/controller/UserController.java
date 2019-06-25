@@ -48,7 +48,7 @@ public class UserController {
     @RequestMapping(value = "/user/updateUser",method = RequestMethod.POST)
     public void updateUser(@RequestBody User user){
         log.info(user.toString());
-        //userService.updateUser(user);
+        userService.updateUser(user);
     }
 
     /*查询个人用户*/
