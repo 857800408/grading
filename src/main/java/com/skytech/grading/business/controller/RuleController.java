@@ -21,7 +21,7 @@ public class RuleController {
     private RuleService ruleService;
 
     /*查询所有规则*/
-    @RequestMapping(value = "getRuleByPage",method = RequestMethod.GET)
+    @RequestMapping(value = "/getRuleByPage",method = RequestMethod.GET)
     public PageHelper getRuleByPage(PageHelper pageHelper){
         return ruleService.getRuleByPage(pageHelper);
     }

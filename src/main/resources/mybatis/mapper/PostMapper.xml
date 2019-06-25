@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.skytech.grading.business.dao.PostDao">
+    <resultMap id="selectPost" type="com.skytech.grading.business.domain.Post">
+        <id property="postId" column="post_Id"></id>
+        <result property="postName" column="post_Name"></result>
+        <result property="postIntroduction" column="post_Introduction"></result>
+    </resultMap>
+    <select id="getAllPost" resultMap="selectPost">
+        select * form t_POST
+    </select>
+
+</mapper>
