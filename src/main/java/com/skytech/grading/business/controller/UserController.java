@@ -1,8 +1,10 @@
 package com.skytech.grading.business.controller;
 
+import com.skytech.grading.business.domain.ResponseBean;
 import com.skytech.grading.business.domain.User;
 import com.skytech.grading.business.service.UserService;
 import com.skytech.grading.business.util.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Created by huangdasheng
  */
 @RestController
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -31,24 +34,21 @@ public class UserController {
 
     /*添加用户*/
     @RequestMapping(value = "/user/addUser",method = RequestMethod.POST)
-    //前后端分离 shiro权限拦截无效
     //@RequiresPermissions(value = "addUser")
     public void addUser(@RequestBody User user){
         userService.addUser(user);
     }
 
     @RequestMapping(value = "/user/delUser",method = RequestMethod.GET)
-    //前后端分离 shiro权限拦截无效
     //@RequiresPermissions(value = "delUser")
     public void delUser(@RequestParam("id") String id){
         userService.delUser(id);
     }
 
     @RequestMapping(value = "/user/updateUser",method = RequestMethod.POST)
-    //前后端分离 shiro权限拦截无效
-        //@RequiresPermissions(value = "delUser")
-    public void delUser(@RequestBody User user){
-        userService.updateUser(user);
+    public void updateUser(@RequestBody User user){
+        log.info(user.toString());
+        //userService.updateUser(user);
     }
 
     /*查询个人用户*/
@@ -57,5 +57,6 @@ public class UserController {
     public User getPersonal(HttpServletRequest request){
         return userService.getPersonal(request);
     }
+
 
 }
